@@ -1,23 +1,24 @@
+import { Expose } from "class-transformer";
 import {
   Column,
   Entity,
   Index,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { Expose } from "class-transformer";
-
-import SharedEntity from "./SharedEntity";
+import BaseEntity from "./Entity";
+import Post from "./Post";
 import { User } from "./User";
 
 @Entity("subs")
-export default class Sub extends SharedEntity {
+export default class Sub extends BaseEntity {
   @Index()
   @Column({ unique: true })
   name: string;
 
-  @Column({ unique: true })
+  @Column()
   title: string;
 
   @Column({ type: "text", nullable: true })
@@ -29,7 +30,7 @@ export default class Sub extends SharedEntity {
   @Column({ nullable: true })
   bannerUrn: string;
 
-  @Column({ default: 0 })
+  @Column()
   username: string;
 
   @ManyToOne(() => User)
@@ -50,6 +51,6 @@ export default class Sub extends SharedEntity {
   get bannerUrl(): string {
     return this.bannerUrn
       ? `${process.env.APP_URL}/images/${this.bannerUrn}`
-      : "https://www.gravatar.com/avatar?d=mp&f=y";
+      : undefined;
   }
 }

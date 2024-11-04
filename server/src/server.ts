@@ -1,7 +1,6 @@
 import express from "express";
 import morgan from "morgan";
 import { AppDataSource } from "./data-source";
-import { User } from "./entities/User";
 
 const app = express();
 
@@ -10,7 +9,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.get("/", (_, res) => {
-  res.send("Hello, World!");
+  res.send("Hello, World22!");
 });
 
 const port = 4000;
